@@ -1,0 +1,51 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Person Details</h2>
+    
+    <div class="d-flex justify-content-end mb-3">
+      <button class="btn btn-primary" (click)="openForm()" (click)="setEdit(false)">
+        <i class="fa fa-plus"></i> Add Person
+      </button>
+    </div>
+  <table class="table --bs-white">
+      <thead class="thread-dark">
+        <tr>
+          <th>Fullname</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip Code</th>
+          <th>Phone Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of addresses | keyvalue; let i = index">
+          <td>{{ person.value.fullName }}</td>
+          <td>{{ person.value.address }}</td>
+          <td>{{ person.value.city }}</td>
+          <td>{{ person.value.state }}</td>
+          <td>{{ person.value.zipCode }}</td>
+          <td>{{ person.value.phoneNumber }}</td>
+          <td>        
+            <button class="btn btn-outline-secondary btn-sm bg-light" (click)="editAddress(person.value)" (click)="openForm()" (click)="setEdit(true)">
+              edit
+            </button>
+            <button class="btn btn-outline-danger btn-sm ms-2" (click)="deleteAddress(person.value)">
+              delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+<div class="overlay" *ngIf="getForm()" (click)="closeForm()" (click)="setEdit(false)"></div>
+<div class="popup-container" >
+  <app-form-component 
+  *ngIf="getForm()" 
+  [editAddressData]="selectedAddress" 
+  (formSubmitted)="addNewPerson($event)">
+</app-form-component>
+
+</div>
